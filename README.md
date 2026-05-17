@@ -2,6 +2,11 @@
 
 Framework ini dibuat agar mahasiswa cukup mengganti konfigurasi di `.env` tanpa mengubah kode Python.
 
+## CNN Workflow Representation
+
+![CNN Workflow for Banana Ripeness Classification](cnn-framework-representation.png)
+
+
 ## Struktur dataset yang disarankan
 
 Simpan semua dataset di dalam folder `dataset/`:

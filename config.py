@@ -21,6 +21,11 @@ def get_str(key: str, default: str) -> str:
     """Membaca nilai string dari .env."""
     return os.getenv(key, default).strip()
 
+def get_bool(key: str, default: bool) -> bool:
+    value = os.getenv(key)
+    if value is None:
+        return default
+    return value.lower() in ["true", "1", "yes", "y"]
 
 def get_optional_str(key: str, default: Optional[str] = None) -> Optional[str]:
     """Membaca nilai string opsional dari .env."""
@@ -159,6 +164,11 @@ class Config:
     weight_decay: float = get_float("WEIGHT_DECAY", 0.0)
     num_workers: int = get_int("NUM_WORKERS", 2)
     device: str = get_str("DEVICE", "auto")
+
+    early_stopping: bool = get_bool("EARLY_STOPPING", True)
+    early_stopping_patience: int = get_int("EARLY_STOPPING_PATIENCE", 5)
+    early_stopping_min_delta: float = get_float("EARLY_STOPPING_MIN_DELTA", 0.001)
+    early_stopping_monitor: str = get_str("EARLY_STOPPING_MONITOR", "val_loss")
 
     # ============================================================
     # 4. MODEL

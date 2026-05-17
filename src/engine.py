@@ -4,6 +4,8 @@ from typing import Dict, Tuple
 
 import torch
 
+from src.early_stopping import EarlyStopping
+
 
 def run_one_epoch(
     model,
@@ -14,7 +16,7 @@ def run_one_epoch(
     is_train: bool,
 ) -> Tuple[float, float]:
     """
-    Menjalankan satu epoch.
+    Menjalankan satu epoch untuk training atau validation.
 
     Return:
     - average_loss
@@ -45,6 +47,7 @@ def run_one_epoch(
                 optimizer.step()
 
             batch_size = images.size(0)
+
             total_loss += loss.item() * batch_size
             correct += (outputs.argmax(dim=1) == labels).sum().item()
             total += batch_size
@@ -62,7 +65,9 @@ def save_checkpoint(
     config,
     best_val_accuracy: float,
 ) -> None:
-    """Menyimpan model terbaik beserta metadata eksperimen."""
+    """
+    Menyimpan model terbaik beserta metadata eksperimen.
+    """
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -74,6 +79,46 @@ def save_checkpoint(
             "best_val_accuracy": best_val_accuracy,
         },
         path,
+    )
+
+
+def create_early_stopping(config):
+    """
+    Membuat object EarlyStopping jika fitur early stopping diaktifkan.
+
+    Jika EARLY_STOPPING=false, maka fungsi ini mengembalikan None.
+    """
+    if not config.early_stopping:
+        return None
+
+    return EarlyStopping(
+        patience=config.early_stopping_patience,
+        min_delta=config.early_stopping_min_delta,
+        monitor=config.early_stopping_monitor,
+    )
+
+
+def get_monitor_value(
+    monitor_name: str,
+    val_loss: float,
+    val_acc: float,
+) -> float:
+    """
+    Mengambil nilai yang akan dipantau oleh early stopping.
+
+    Pilihan:
+    - val_loss: semakin kecil semakin baik
+    - val_acc : semakin besar semakin baik
+    """
+    if monitor_name == "val_loss":
+        return val_loss
+
+    if monitor_name == "val_acc":
+        return val_acc
+
+    raise ValueError(
+        "EARLY_STOPPING_MONITOR harus 'val_loss' atau 'val_acc'. "
+        f"Nilai saat ini: {monitor_name}"
     )
 
 
@@ -90,9 +135,11 @@ def train_model(
     config,
 ) -> Tuple[Dict[str, list], float]:
     """
-    Training model sampai epoch selesai.
+    Training model sampai epoch selesai atau sampai early stopping aktif.
 
-    Model terbaik disimpan berdasarkan validation accuracy tertinggi.
+    Model terbaik tetap disimpan berdasarkan validation accuracy tertinggi.
+    Early stopping digunakan untuk menghentikan training jika validation metric
+    tidak membaik dalam beberapa epoch.
     """
     history = {
         "train_loss": [],
@@ -102,11 +149,29 @@ def train_model(
     }
 
     best_val_accuracy = 0.0
-    print("Modfikasi model dilatih sebanyak:", epochs, "epochs")
-    print("Modfikasi model akan disimpan di:", save_path)
+    early_stopping = create_early_stopping(config)
 
-    print(f"{'Epoch':>5} | {'Train Loss':>10} | {'Train Acc':>9} | {'Val Loss':>8} | {'Val Acc':>7}")
-    print("-" * 62)
+    print("Model dilatih maksimal sebanyak:", epochs, "epochs")
+    print("Model terbaik akan disimpan di:", save_path)
+
+    if early_stopping is not None:
+        print("Early stopping       : aktif")
+        print("Monitor              :", config.early_stopping_monitor)
+        print("Patience             :", config.early_stopping_patience)
+        print("Minimum delta        :", config.early_stopping_min_delta)
+    else:
+        print("Early stopping       : tidak aktif")
+
+    print()
+    print(
+        f"{'Epoch':>5} | "
+        f"{'Train Loss':>10} | "
+        f"{'Train Acc':>9} | "
+        f"{'Val Loss':>8} | "
+        f"{'Val Acc':>7} | "
+        f"{'Early Stop':>12}"
+    )
+    print("-" * 82)
 
     for epoch in range(1, epochs + 1):
         train_loss, train_acc = run_one_epoch(
@@ -133,8 +198,10 @@ def train_model(
         history["val_acc"].append(val_acc)
 
         is_best = val_acc > best_val_accuracy
+
         if is_best:
             best_val_accuracy = val_acc
+
             save_checkpoint(
                 path=save_path,
                 model=model,
@@ -143,10 +210,45 @@ def train_model(
                 best_val_accuracy=best_val_accuracy,
             )
 
+        early_stop_text = "-"
+
+        if early_stopping is not None:
+            monitor_value = get_monitor_value(
+                monitor_name=config.early_stopping_monitor,
+                val_loss=val_loss,
+                val_acc=val_acc,
+            )
+
+            should_stop = early_stopping.step(monitor_value)
+
+            early_stop_text = (
+                f"{early_stopping.counter}/"
+                f"{early_stopping.patience}"
+            )
+
+            if should_stop:
+                early_stop_text = "STOP"
+
         marker = " *best" if is_best else ""
+
         print(
-            f"{epoch:5d} | {train_loss:10.4f} | {train_acc:8.2f}% | "
-            f"{val_loss:8.4f} | {val_acc:6.2f}%{marker}"
+            f"{epoch:5d} | "
+            f"{train_loss:10.4f} | "
+            f"{train_acc:8.2f}% | "
+            f"{val_loss:8.4f} | "
+            f"{val_acc:6.2f}% | "
+            f"{early_stop_text:>12}"
+            f"{marker}"
         )
+
+        if early_stopping is not None and early_stopping.should_stop:
+            print()
+            print(
+                f"Early stopping aktif pada epoch {epoch}. "
+                f"Training dihentikan karena "
+                f"{config.early_stopping_monitor} tidak membaik selama "
+                f"{config.early_stopping_patience} epoch."
+            )
+            break
 
     return history, best_val_accuracy
