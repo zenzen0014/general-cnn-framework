@@ -137,7 +137,7 @@ def save_parameter_table(
         note,
         fontsize=10,
         color="black",
-        family="Segoe UI",
+        family="DejaVu Sans",
     )
 
     fig.tight_layout()
@@ -207,7 +207,7 @@ def save_architecture_image(
         "Model Architecture",
         fontsize=16,
         fontweight="bold",
-        family="Segoe UI",
+        family="DejaVu Sans",
         pad=20,
         color="black",
     )

@@ -49,25 +49,25 @@ def plot_history(history, output_path: str | Path) -> None:
 
     axes[0].set_title(
         "Loss per Epoch",
-        fontname="Segoe UI",
+        fontname="DejaVu Sans",
         fontsize=14,
         fontweight="bold",
         color="black",
     )
     axes[0].set_xlabel(
         "Epoch",
-        fontname="Segoe UI",
+        fontname="DejaVu Sans",
         fontsize=12,
         color="black",
     )
     axes[0].set_ylabel(
         "Loss",
-        fontname="Segoe UI",
+        fontname="DejaVu Sans",
         fontsize=12,
         color="black",
     )
     axes[0].grid(True, linestyle="--", alpha=0.4)
-    axes[0].legend(prop={"family": "Segoe UI", "size": 10})
+    axes[0].legend(prop={"family": "DejaVu Sans", "size": 10})
 
     # =========================
     # Accuracy Curve
@@ -91,42 +91,42 @@ def plot_history(history, output_path: str | Path) -> None:
 
     axes[1].set_title(
         "Accuracy per Epoch",
-        fontname="Segoe UI",
+        fontname="DejaVu Sans",
         fontsize=14,
         fontweight="bold",
         color="black",
     )
     axes[1].set_xlabel(
         "Epoch",
-        fontname="Segoe UI",
+        fontname="DejaVu Sans",
         fontsize=12,
         color="black",
     )
     axes[1].set_ylabel(
         "Accuracy (%)",
-        fontname="Segoe UI",
+        fontname="DejaVu Sans",
         fontsize=12,
         color="black",
     )
     axes[1].grid(True, linestyle="--", alpha=0.4)
-    axes[1].legend(prop={"family": "Segoe UI", "size": 10})
+    axes[1].legend(prop={"family": "DejaVu Sans", "size": 10})
 
     # Tick labels Segoe UI
     for ax in axes:
         ax.tick_params(axis="both", colors="black")
         for label in ax.get_xticklabels():
-            label.set_fontname("Segoe UI")
+            label.set_fontname("DejaVu Sans")
             label.set_fontsize(10)
             label.set_color("black")
 
         for label in ax.get_yticklabels():
-            label.set_fontname("Segoe UI")
+            label.set_fontname("DejaVu Sans")
             label.set_fontsize(10)
             label.set_color("black")
 
     fig.suptitle(
         "Training Evaluation Curve",
-        fontname="Segoe UI",
+        fontname="DejaVu Sans",
         fontsize=16,
         fontweight="bold",
         color="black",
@@ -188,7 +188,7 @@ def plot_confusion_matrix(
                 va="center",
                 color=text_color,
                 fontsize=13,
-                fontname="Segoe UI",
+                fontname="DejaVu Sans",
                 fontweight="bold" if row == col else "normal",
             )
 
@@ -205,14 +205,14 @@ def plot_confusion_matrix(
         rotation=0,
         ha="center",
         fontsize=12,
-        fontname="Segoe UI",
+        fontname="DejaVu Sans",
         color="black",
     )
     ax.set_yticklabels(
         class_names,
         rotation=0,
         fontsize=12,
-        fontname="Segoe UI",
+        fontname="DejaVu Sans",
         color="black",
     )
 
@@ -222,7 +222,7 @@ def plot_confusion_matrix(
     ax.set_title(
         title,
         fontsize=16,
-        fontname="Segoe UI",
+        fontname="DejaVu Sans",
         fontweight="bold",
         pad=22,
         color="black",
@@ -230,7 +230,7 @@ def plot_confusion_matrix(
     ax.set_xlabel(
         "Predicted",
         fontsize=12,
-        fontname="Segoe UI",
+        fontname="DejaVu Sans",
         fontweight="bold",
         labelpad=10,
         color="black",
@@ -238,7 +238,7 @@ def plot_confusion_matrix(
     ax.set_ylabel(
         "True",
         fontsize=12,
-        fontname="Segoe UI",
+        fontname="DejaVu Sans",
         fontweight="bold",
         labelpad=10,
         color="black",
