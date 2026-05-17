@@ -6,7 +6,7 @@ import torch
 import torch.nn as nn
 
 
-plt.rcParams["font.family"] = "Segoe UI"
+plt.rcParams["font.family"] = "DejaVu Sans"
 
 
 def count_model_parameters(model: nn.Module) -> pd.DataFrame:
