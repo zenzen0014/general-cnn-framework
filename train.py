@@ -9,6 +9,8 @@ from src.engine import train_model
 from src.models import build_model
 from src.utils import get_device, print_section, save_json, set_seed
 from src.visualization import plot_history
+from src.model_report import export_model_report
+from src.model_graph import export_model_graph
 
 
 def main() -> None:
@@ -50,6 +52,22 @@ def main() -> None:
     print(f"Device             : {device}")
     print(f"Total parameter    : {total_params:,}")
     print(f"Trainable parameter: {trainable_params:,}")
+
+    export_model_report(
+        model=model,
+        output_dir=output_dir,
+    )
+
+    architecture_graph_path = export_model_graph(
+        model=model,
+        input_size=(CONFIG.image_channels, CONFIG.image_size, CONFIG.image_size),
+        output_dir=output_dir,
+        device=device,
+        graph_name=f"{CONFIG.model_name}_architecture",
+        depth=2,
+    )
+
+    print(f"Architecture graph : {architecture_graph_path}")
 
     criterion = nn.CrossEntropyLoss()
     optimizer = torch.optim.Adam(

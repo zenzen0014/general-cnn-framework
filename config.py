@@ -148,6 +148,7 @@ class Config:
     # ============================================================
     image_size: int = get_int("IMAGE_SIZE", 224)
     augment_train: bool = get_bool("AUGMENT_TRAIN", True)
+    image_channels: int = get_int("IMAGE_CHANNELS", 3)
 
     # ============================================================
     # 3. TRAINING

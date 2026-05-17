@@ -7,3 +7,5 @@ scikit-learn
 kagglehub
 python-dotenv
 dotenv
+torchview 
+graphviz

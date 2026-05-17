@@ -1,12 +1,12 @@
-Test Accuracy: 90.42%
+Test Accuracy: 71.67%
 
-              precision    recall  f1-score   support
+                      precision    recall  f1-score   support
 
-    overripe     0.9298    0.9464    0.9381        56
-        ripe     0.8923    0.8529    0.8722        68
-      rotten     0.8197    0.8772    0.8475        57
-      unripe     0.9825    0.9492    0.9655        59
+            cataract     1.0000    1.0000    1.0000        56
+diabetic_retinopathy     0.6471    0.8088    0.7190        68
+            glaucoma     0.6190    0.4561    0.5253        57
+              normal     0.6140    0.5932    0.6034        59
 
-    accuracy                         0.9042       240
-   macro avg     0.9061    0.9064    0.9058       240
-weighted avg     0.9060    0.9042    0.9046       240
+            accuracy                         0.7167       240
+           macro avg     0.7200    0.7145    0.7119       240
+        weighted avg     0.7146    0.7167    0.7101       240
