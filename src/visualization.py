@@ -6,7 +6,7 @@ from matplotlib.patches import Rectangle
 
 
 # Global font setting
-plt.rcParams["font.family"] = "Segoe UI"
+plt.rcParams["font.family"] = "DejaVu Sans"
 plt.rcParams["font.size"] = 11
 plt.rcParams["axes.titlesize"] = 14
 plt.rcParams["axes.labelsize"] = 12
