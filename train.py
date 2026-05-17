@@ -15,7 +15,7 @@ def main() -> None:
     CONFIG.validate()
     set_seed(CONFIG.seed)
 
-    output_dir = Path(CONFIG.output_dir)
+    output_dir = CONFIG.resolved_output_dir
     output_dir.mkdir(parents=True, exist_ok=True)
 
     device = get_device(CONFIG.device)

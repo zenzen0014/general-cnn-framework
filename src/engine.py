@@ -102,6 +102,8 @@ def train_model(
     }
 
     best_val_accuracy = 0.0
+    print("Modfikasi model dilatih sebanyak:", epochs, "epochs")
+    print("Modfikasi model akan disimpan di:", save_path)
 
     print(f"{'Epoch':>5} | {'Train Loss':>10} | {'Train Acc':>9} | {'Val Loss':>8} | {'Val Acc':>7}")
     print("-" * 62)
