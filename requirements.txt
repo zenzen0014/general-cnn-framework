@@ -6,3 +6,4 @@ pillow
 scikit-learn
 kagglehub
 python-dotenv
+dotenv
