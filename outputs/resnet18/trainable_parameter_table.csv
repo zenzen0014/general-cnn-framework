@@ -1,0 +1,63 @@
+Layer Name,Shape,Parameters,Trainable
+conv1.weight,"[64, 3, 7, 7]",9408,True
+bn1.weight,[64],64,True
+bn1.bias,[64],64,True
+layer1.0.conv1.weight,"[64, 64, 3, 3]",36864,True
+layer1.0.bn1.weight,[64],64,True
+layer1.0.bn1.bias,[64],64,True
+layer1.0.conv2.weight,"[64, 64, 3, 3]",36864,True
+layer1.0.bn2.weight,[64],64,True
+layer1.0.bn2.bias,[64],64,True
+layer1.1.conv1.weight,"[64, 64, 3, 3]",36864,True
+layer1.1.bn1.weight,[64],64,True
+layer1.1.bn1.bias,[64],64,True
+layer1.1.conv2.weight,"[64, 64, 3, 3]",36864,True
+layer1.1.bn2.weight,[64],64,True
+layer1.1.bn2.bias,[64],64,True
+layer2.0.conv1.weight,"[128, 64, 3, 3]",73728,True
+layer2.0.bn1.weight,[128],128,True
+layer2.0.bn1.bias,[128],128,True
+layer2.0.conv2.weight,"[128, 128, 3, 3]",147456,True
+layer2.0.bn2.weight,[128],128,True
+layer2.0.bn2.bias,[128],128,True
+layer2.0.downsample.0.weight,"[128, 64, 1, 1]",8192,True
+layer2.0.downsample.1.weight,[128],128,True
+layer2.0.downsample.1.bias,[128],128,True
+layer2.1.conv1.weight,"[128, 128, 3, 3]",147456,True
+layer2.1.bn1.weight,[128],128,True
+layer2.1.bn1.bias,[128],128,True
+layer2.1.conv2.weight,"[128, 128, 3, 3]",147456,True
+layer2.1.bn2.weight,[128],128,True
+layer2.1.bn2.bias,[128],128,True
+layer3.0.conv1.weight,"[256, 128, 3, 3]",294912,True
+layer3.0.bn1.weight,[256],256,True
+layer3.0.bn1.bias,[256],256,True
+layer3.0.conv2.weight,"[256, 256, 3, 3]",589824,True
+layer3.0.bn2.weight,[256],256,True
+layer3.0.bn2.bias,[256],256,True
+layer3.0.downsample.0.weight,"[256, 128, 1, 1]",32768,True
+layer3.0.downsample.1.weight,[256],256,True
+layer3.0.downsample.1.bias,[256],256,True
+layer3.1.conv1.weight,"[256, 256, 3, 3]",589824,True
+layer3.1.bn1.weight,[256],256,True
+layer3.1.bn1.bias,[256],256,True
+layer3.1.conv2.weight,"[256, 256, 3, 3]",589824,True
+layer3.1.bn2.weight,[256],256,True
+layer3.1.bn2.bias,[256],256,True
+layer4.0.conv1.weight,"[512, 256, 3, 3]",1179648,True
+layer4.0.bn1.weight,[512],512,True
+layer4.0.bn1.bias,[512],512,True
+layer4.0.conv2.weight,"[512, 512, 3, 3]",2359296,True
+layer4.0.bn2.weight,[512],512,True
+layer4.0.bn2.bias,[512],512,True
+layer4.0.downsample.0.weight,"[512, 256, 1, 1]",131072,True
+layer4.0.downsample.1.weight,[512],512,True
+layer4.0.downsample.1.bias,[512],512,True
+layer4.1.conv1.weight,"[512, 512, 3, 3]",2359296,True
+layer4.1.bn1.weight,[512],512,True
+layer4.1.bn1.bias,[512],512,True
+layer4.1.conv2.weight,"[512, 512, 3, 3]",2359296,True
+layer4.1.bn2.weight,[512],512,True
+layer4.1.bn2.bias,[512],512,True
+fc.weight,"[4, 512]",2048,True
+fc.bias,[4],4,True

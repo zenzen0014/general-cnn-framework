@@ -1,0 +1,12 @@
+Test Accuracy: 91.67%
+
+              precision    recall  f1-score   support
+
+    overripe     0.8846    0.9200    0.9020        25
+        ripe     0.8824    0.9375    0.9091        32
+      rotten     0.9310    0.8182    0.8710        33
+      unripe     0.9677    1.0000    0.9836        30
+
+    accuracy                         0.9167       120
+   macro avg     0.9164    0.9189    0.9164       120
+weighted avg     0.9176    0.9167    0.9158       120
